@@ -194,7 +194,13 @@ class CountDown extends React.Component {
     const {timeToShow, timeLabels, showSeparator} = this.props;
     const {until} = this.state;
     const {days, hours, minutes, seconds} = this.getTimeLeft();
-    const newTime = sprintf('%02d:%02d:%02d:%02d', days, hours, minutes, seconds).split(':');
+    let newTime;
+    if(this.props.hoursClock) {
+      newTime = sprintf('%02d:%02d:%02d:%02d', days, hours + (days * 24), minutes, seconds).split(':');
+    } else {
+      newTime = sprintf('%02d:%02d:%02d:%02d', days, hours, minutes, seconds).split(':');
+    }
+    
     const Component = this.props.onPress ? TouchableOpacity : View;
 
     return (
